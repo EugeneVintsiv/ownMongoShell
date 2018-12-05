@@ -8,7 +8,7 @@ import io.github.eugenevintsiv.domain.Query;
 import io.github.eugenevintsiv.util.QueryHelper;
 import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -18,16 +18,12 @@ import java.util.List;
 @Repository
 public class QueryConverterRepository {
 
-    private final MongoClient mongo;
     private final MongoDatabase database;
 
-    @Value("${spring.data.mongodb.database}")
-    private String dbName;
-
     @Autowired
-    public QueryConverterRepository(MongoClient mongo) {
-        this.mongo = mongo;
-        database = mongo.getDatabase(dbName);
+    public QueryConverterRepository(MongoClient mongo, Environment env) {
+        final String property = env.getProperty("spring.data.mongodb.database");
+        database = mongo.getDatabase(property);
     }
 
     public String getData(Query query) {
