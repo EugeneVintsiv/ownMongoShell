@@ -8,15 +8,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.shell.jline.PromptProvider;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 @SpringBootApplication
 public class SpringShellSample {
 
     public static void main(String[] args) throws Exception {
-        Logger mongoLogger = Logger.getLogger("org.mongodb.driver");
-        mongoLogger.setLevel(Level.SEVERE);
         ConfigurableApplicationContext context = SpringApplication.run(SpringShellSample.class, args);
     }
 
